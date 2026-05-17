@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SmartphoneHub - Belanja Smartphone Online</title>
+  <script>
+    if (window.location.protocol.startsWith('http') && window.location.pathname.endsWith('.html')) {
+      window.location.replace(window.location.pathname.replace(/\.html$/, '.php'));
+    }
+  </script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body class="bg-slate-100 text-slate-900">
+  <!-- Header -->
+  <header class="navbar-wrapper bg-white sticky-top shadow-sm" style="z-index: 1030;">
+    <div class="container-fluid px-3">
+      <!-- Top bar with promo -->
+      <div class="top-bar bg-slate-900 text-white text-center py-1" style="font-size: 0.85rem; margin: -12px -12px 0 -12px; border-radius: 0;">
+        <span>🎉 Gratis Ongkir + Banyak Promo - Belanja di aplikasi</span>
+      </div>
+      
+      <!-- Main navbar -->
+      <nav class="navbar navbar-expand-lg navbar-light p-2">
+        <a href="index.php" class="navbar-brand fw-bold fs-4" style="color: #0b3d91;">SmartphoneHub</a>
+        
+        <div class="d-none d-lg-flex flex-grow-1 mx-3" style="max-width: 400px;">
+          <div class="input-group">
+            <input type="text" class="form-control" placeholder="Cari di SmartphoneHub" />
+            <button class="btn btn-primary btn-sm" type="button">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.003-.003.007-.007.011-.011a6.5 6.5 0 0 0 1.386-1.387z"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <div class="d-flex gap-2 align-items-center">
+          <button class="btn btn-sm btn-outline-primary d-none d-lg-block">Masuk</button>
+          <button class="btn btn-sm btn-success d-none d-lg-block">Daftar</button>
+          <button class="btn btn-sm btn-link position-relative" data-bs-toggle="offcanvas" data-bs-target="#cartCanvas">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16"><path d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"/></svg>
+          </button>
+          <a href="admin.php" class="btn btn-sm btn-outline-secondary d-none d-lg-block">Admin</a>
+        </div>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggle">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- Categories Section -->
+    <section class="bg-white py-3 border-bottom">
+      <div class="container-fluid px-3">
+        <div class="d-flex gap-3 overflow-x-auto pb-2" style="overflow-x: auto; -webkit-overflow-scrolling: touch;">
+          <button class="btn btn-sm btn-light px-3 py-2 flex-shrink-0 filter-btn active" data-filter="all" style="white-space: nowrap;">
+            <span>📁 Kategori</span>
+          </button>
+          <button class="btn btn-sm btn-light px-3 py-2 flex-shrink-0 filter-btn" data-filter="flagship" style="white-space: nowrap;">
+            <span>📱 Flagship</span>
+          </button>
+          <button class="btn btn-sm btn-light px-3 py-2 flex-shrink-0 filter-btn" data-filter="midrange" style="white-space: nowrap;">
+            <span>💻 Mid-range</span>
+          </button>
+          <button class="btn btn-sm btn-light px-3 py-2 flex-shrink-0 filter-btn" data-filter="budget" style="white-space: nowrap;">
+            <span>🎯 Budget</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Promotional Banner -->
+    <section class="container-fluid px-3 py-4">
+      <div class="banner-promo rounded-4 p-5 text-white" style="background: linear-gradient(135deg, #d91e63 0%, #9c27b0 100%); text-align: center;">
+        <h2 class="fs-3 fw-bold mb-3">Selamat datang! Dapatkan Promo Menarik</h2>
+        <p class="mb-0" style="font-size: 0.95rem;">Hemat hingga 70% untuk smartphone pilihan Anda</p>
+        <a href="#products" class="btn btn-warning mt-3">🛒 Belanja Sekarang</a>
+      </div>
+    </section>
+
+    <!-- Products Section -->
+    <section class="container-fluid px-3 py-5" id="products">
+      <div class="row mb-4">
+        <div class="col-12">
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <h2 class="fw-bold fs-5 mb-0">Pilihan Smartphone Populer</h2>
+            <a href="#" class="text-decoration-none" style="color: #0b3d91; font-size: 0.9rem;">Lihat Semua →</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="row g-3" id="productGrid"></div>
+    </section>
+  </main>
+
+  <!-- Cart Offcanvas -->
+  <div class="offcanvas offcanvas-end" tabindex="-1" id="cartCanvas" aria-labelledby="cartLabel">
+    <div class="offcanvas-header bg-primary text-white">
+      <h5 class="offcanvas-title" id="cartLabel">🛒 Keranjang Belanja</h5>
+      <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"></button>
+    </div>
+    <div class="offcanvas-body d-flex flex-column">
+      <div id="emptyCart" class="text-center py-5">
+        <p class="text-muted">Keranjang Anda kosong</p>
+      </div>
+      <ul class="list-group mb-3" id="cartList"></ul>
+      <div class="mt-auto">
+        <hr />
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <span class="fw-semibold">Total Harga:</span>
+          <span id="cartTotal" class="fw-bold fs-5" style="color: #0b3d91;">Rp0</span>
+        </div>
+        <button class="btn btn-primary w-100 fw-bold" id="checkoutButton">Lanjut ke Checkout</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="bg-white py-5 mt-5 border-top">
+    <div class="container">
+      <div class="row g-4 mb-4">
+        <div class="col-md-4">
+          <h6 class="fw-bold mb-3">Tentang SmartphoneHub</h6>
+          <p class="text-muted small">Toko online terpercaya untuk smartphone berkualitas dengan harga terbaik dan layanan pelanggan terbaik.</p>
+        </div>
+        <div class="col-md-4">
+          <h6 class="fw-bold mb-3">Kategori</h6>
+          <ul class="list-unstyled small text-muted">
+            <li><a href="#" class="text-decoration-none text-muted">Flagship</a></li>
+            <li><a href="#" class="text-decoration-none text-muted">Mid-range</a></li>
+            <li><a href="#" class="text-decoration-none text-muted">Budget</a></li>
+          </ul>
+        </div>
+        <div class="col-md-4">
+          <h6 class="fw-bold mb-3">Hubungi Kami</h6>
+          <p class="small text-muted">
+            📞 Customer Service: 1234-5678<br />
+            📧 Email: info@smartphonehub.id
+          </p>
+        </div>
+      </div>
+      <hr />
+      <div class="text-center text-muted small">
+        <p>© 2026 SmartphoneHub. All Rights Reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
